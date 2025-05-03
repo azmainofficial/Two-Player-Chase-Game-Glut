@@ -12,7 +12,7 @@ Square red = {100, 100, 20, 1.0f, 0.0f, 0.0f};
 Square blue = {150, 150, 20, 0.0f, 0.0f, 1.0f};
 Square green = {250, 250, 20, 0.0f, 1.0f, 0.0f};
 
-float speed = 2.0f;
+float speed = 30.0f;
 
 int windowWidth = 500, windowHeight = 500;
 
@@ -37,7 +37,7 @@ bool isColliding(const Square& a, const Square& b) {
 }
 
 void checkCollisionAndWin() {
-    if (isColliding(red, green)) {
+    if (isColliding(red, green) || isColliding(blue, green)) {
         sprintf(winnerMsg, "Player A Wins!");
         gameEnded = true;
     }
@@ -48,6 +48,7 @@ void display() {
     glLoadIdentity();
 
     drawSquare(red);
+    drawSquare(blue);
     drawSquare(green);
 
     if (gameEnded) {
