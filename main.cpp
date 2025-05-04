@@ -53,7 +53,7 @@ void display() {
 
     if (gameEnded) {
         glColor3f(1.0, 1.0, 1.0);
-        glRasterPos2f(200, 250);
+        glRasterPos2f(180, 250);
         for (char* c = winnerMsg; *c; c++) {
             glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, *c);
         }
@@ -68,7 +68,7 @@ void reshape(int w, int h) {
     glViewport(0, 0, w, h);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluOrtho2D(0, w, 0, h);
+    gluOrtho2D(0, w, 0, h); // Bottom-left origin
     glMatrixMode(GL_MODELVIEW);
 }
 
@@ -106,7 +106,7 @@ void mouse(int button, int state, int x, int y) {
 
     if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN) {
         green.x = x;
-        green.y = windowHeight - y;
+        green.y = windowHeight - y; // Flip y-axis for mouse input
         cooldown = cooldownDuration;
         checkCollisionAndWin();
         glutPostRedisplay();
@@ -134,6 +134,8 @@ void timer(int v) {
 
 void init() {
     glClearColor(0, 0, 0, 1);
+    glDisable(GL_DEPTH_TEST);
+    glDisable(GL_BLEND);
     startTime = time(NULL);
     glutTimerFunc(0, timer, 0);
 }
